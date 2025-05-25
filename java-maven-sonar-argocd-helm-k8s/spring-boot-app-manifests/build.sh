@@ -1,6 +1,14 @@
 #!/bin/bash
-BUILD_NUMBER="${BUILD_NUMBER:- 0}"
-PRE_BUILD=$(expr BUILD_NUMBER - 1)
-echo "Updating image tag: cicd:$PRE_BUILD -> cicd:$BUILD_NUMBER"
-sed -i "s/cicd:$PRE_BUILD/cicd:$BUILD_NUMBER/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+
+# Use fallback if BUILD_NUMBER is not set
+BUILD_NUMBER="${BUILD_NUMBER:-0}"
+
+# Optional debug print
+echo "Setting deployment image tag to: cicd:${BUILD_NUMBER}"
+
+# Replace tag using regex, match anything after 'cicd:'
+sed -i "s|\(dockaleem/ultimate-cicd:\).*|\1${BUILD_NUMBER}|" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+
+# Show diff for Jenkins logs
 git diff java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+
