@@ -68,5 +68,10 @@ pipeline {
         }
     }
   }
+post {
+always {
+sh 'sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace'
+}
+}
     
 }
