@@ -70,7 +70,10 @@ pipeline {
   }
 post {
 always {
-sh 'sudo chown -R /var/lib/jenkins/workspace/jenkins-pipe-line/java-maven-sonar-argocd-helm-k8s/spring-boot-app/target'
+sh '''
+sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace/jenkins-pipe-line/java-maven-sonar-argocd-helm-k8s/spring-boot-app/target
+sudo chmod -R /var/lib/jenkins/workspace/jenkins-pipe-line/java-maven-sonar-argocd-helm-k8s/spring-boot-app/target
+'''
 }
 }
     
