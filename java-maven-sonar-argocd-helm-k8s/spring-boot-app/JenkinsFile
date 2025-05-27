@@ -12,6 +12,11 @@ pipeline {
         //git branch: 'main', url: 'https://github.com/ammukaleem/Jenkins-Zero-To-Hero.git'
       }
     }
+   stage('Clean Workspace') {
+            steps {
+                deleteDir() // Deletes all files in workspace
+        }
+     }
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
@@ -69,7 +74,8 @@ pipeline {
   }
     post {
        always {
-            sh 'sudo chown -R jenkins:jenkins /path/to/workspace/target'
+            sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace/jenkins-pipe-line
+            sudo chmod -R u+rw /var/lib/jenkins/workspace/jenkins-pipe-line
          }
      } 
 }
