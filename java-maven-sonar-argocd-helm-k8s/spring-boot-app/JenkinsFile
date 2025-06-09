@@ -50,6 +50,7 @@ pipeline {
         environment {
             GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
             GIT_USER_NAME = "ammukaleem"
+            versionTag = "v${BUILD_NUMBER}.0"
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
@@ -57,7 +58,7 @@ pipeline {
                     git config user.email "mdkaleem777@gmail.com"
                     git config user.name "ammukaleem"
                     BUILD_NUMBER=${BUILD_NUMBER}
-                    bash java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/build.sh
+                    sed -i "s|dockaleem/cicd:v[0-9.]*|dockaleem/cicd:${versionTag}|" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
