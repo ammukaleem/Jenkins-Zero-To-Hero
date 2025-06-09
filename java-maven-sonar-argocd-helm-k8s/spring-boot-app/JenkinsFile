@@ -72,8 +72,8 @@ pipeline {
 post {
 always {
 sh '''
-sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace/jenkins-pipe-line
-sudo chmod -R u+rwX /var/lib/jenkins/workspace/jenkins-pipe-line
+chown -R jenkins:jenkins /var/lib/jenkins/workspace/jenkins-pipe-line
+chmod -R u+rwX /var/lib/jenkins/workspace/jenkins-pipe-line
 '''
 }
 }
