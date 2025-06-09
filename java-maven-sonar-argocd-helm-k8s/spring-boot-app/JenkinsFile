@@ -70,12 +70,15 @@ pipeline {
     }
   }
 post {
-always {
-sh '''
-chown -R jenkins:jenkins /var/lib/jenkins/workspace/jenkins-pipe-line
-chmod -R u+rwX /var/lib/jenkins/workspace/jenkins-pipe-line
-'''
+    always {
+        sh '''
+        whoami
+        id
+        chown -R $(whoami) /var/lib/jenkins/workspace/jenkins-pipe-line
+        chmod -R u+rwX /var/lib/jenkins/workspace/jenkins-pipe-line
+        '''
+    }
 }
-}
+
     
 }
