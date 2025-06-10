@@ -69,16 +69,6 @@ pipeline {
         }
     }
   }
-post {
-    always {
-        sh '''
-        whoami
-        id
-        chown -R $(whoami) /var/lib/jenkins/workspace/jenkins-pipe-line
-        chmod -R u+rwX /var/lib/jenkins/workspace/jenkins-pipe-line
-        '''
-    }
-}
 
     
 }
